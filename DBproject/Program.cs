@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using DBproject.Repository;
 
 namespace DBproject
 {
@@ -13,6 +14,7 @@ namespace DBproject
     {
         public static void Main(string[] args)
         {
+            SQLConnectionController.sqlConnection.ConnectToServer();
             CreateHostBuilder(args).Build().Run();
         }
 
