@@ -6,7 +6,7 @@
 		sname: '',
 		tname: '',
 		passportId: '',
-		Birthday: '',
+		birthday: new Date(),
 		position: '',
 		salary: 0,
 		conditions: '',
@@ -19,7 +19,7 @@
 	{
 		SendRequest: function () {
 			if (this.fname == '' || this.sname == '' || this.tname == '' ||
-				this.passportId == '' || this.Birthday == '')
+				this.passportId == '')
 			{
 				alert('Введите все поля');
 				return;
@@ -29,14 +29,25 @@
 				alert('Зарплата не может быть отрицательной');
 				return;
 			}
+			var vue = this;
 			dataPost = {
-				fname: this.fname,
-				sname: this.sname
-            };
+				Fname: vue.fname,
+				Sname: vue.sname,
+				Tname: vue.tname,
+				Birthday: vue.birthday,
+				PassportId: vue.passportId,
+				Position: vue.position,
+				Salary: vue.salary,
+				Conditions: vue.conditions,
+				VacationDays: vue.vacationDays,
+				IsVacationPay: vue.isVacPay,
+				IsTravelingPay: vue.isTravPay,
+				IsSickPay: vue.isSickPay
+			};
             $.ajax({
-                url: '/controller/method',
-                type: 'POST',
-                data: dataPost,
+				url: '/staff/newEmployeeRequest',
+				type: 'POST',
+				data: dataPost,
 				success: function (data) {
 					alert('Успешно');
                 },

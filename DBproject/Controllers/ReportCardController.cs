@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DBproject.Controllers
 {
-    [Route("ReportCard")]
+    [Route("reportCard")]
     public class ReportCardController : Controller
     {
-        [Route("ReportCardPanel")]
+        [Route("reportCardPanel")]
         public IActionResult ReportCardPanel()
         {
             return View();

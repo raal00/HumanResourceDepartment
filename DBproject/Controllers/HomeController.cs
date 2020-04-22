@@ -10,7 +10,7 @@ namespace DBproject.Controllers
     [Route("Home")]
     public class HomeController : Controller
     {
-        [Route("Index")]
+        [Route("index")]
         public IActionResult Index()
         {
             //DataBaseAPILib.DataBaseController<Сотрудник> dataBaseController = new DataBaseAPILib.DataBaseController<Сотрудник>();
