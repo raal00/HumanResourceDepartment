@@ -13,7 +13,33 @@
         </div>
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
             <div class="card-body">
-               <h3 class="text-info">Оформление отпуска</h3>
+                <h3 class="text-info">Оформление отпуска</h3>
+                <div class="form-group">
+                    <label for="StartDate1">Дата начала</label>
+                    <input id="StartDate1" class="form-control" type="date" required />
+                </div>
+                <div class="form-group">
+                    <label for="EndDate1">Дата начала</label>
+                    <input id="EndDate1" class="form-control" type="date" required />
+                </div>
+                <div class="form-group">
+                    <label for="PaymentDays1">Дней оплачено</label>
+                    <input id="PaymentDays1" class="form-control" type="text"
+                           pattern="[0-9]{,3}" maxlength="3" required />
+                </div>
+                <div class="form-group">
+                    <div class="btn-group dropright">
+                        <button type="button" class="btn btn-info dropdown-toggle"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Сотрудник
+                        </button>
+                        <div class="dropdown-menu">
+                            <span class="dropdown-item">Petya</span>
+                            <span class="dropdown-item">Kolya</span>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary">Оформить</button>
             </div>
         </div>
     </div>
@@ -28,6 +54,31 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
             <div class="card-body">
                 <h3 class="text-info">Оформление отправления на курс повышения квалификации</h3>
+                <div class="form-group">
+                    <label for="StartDate2">Дата начала</label>
+                    <input id="StartDate2" class="form-control" type="date" required />
+                </div>
+                <div class="form-group">
+                    <label for="EndDate2">Дата начала</label>
+                    <input id="EndDate2" class="form-control" type="date" required />
+                </div>
+                <div class="form-group">
+                    <label for="Reason2">Причина</label>
+                    <input id="Reason2" class="form-control" type="text" maxlength="20" required />
+                </div>
+                <div class="form-group">
+                    <div class="btn-group dropright">
+                        <button type="button" class="btn btn-info dropdown-toggle"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Сотрудник
+                        </button>
+                        <div class="dropdown-menu">
+                            <span class="dropdown-item">Petya</span>
+                            <span class="dropdown-item">Kolya</span>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary">Оформить</button>
             </div>
         </div>
     </div>
@@ -42,6 +93,62 @@
         <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
             <div class="card-body">
                 <h3 class="text-info">Оформление больничного</h3>
+                <div class="form-group">
+                    <label for="StartDate3">Дата начала</label>
+                    <input id="StartDate3" class="form-control" type="date" required />
+                </div>
+                <div class="form-group">
+                    <label for="EndDate3">Дата начала</label>
+                    <input id="EndDate3" class="form-control" type="date" required />
+                </div>
+                <div class="form-group">
+                    <div class="btn-group dropright">
+                        <button type="button" class="btn btn-info dropdown-toggle"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Сотрудник
+                        </button>
+                        <div class="dropdown-menu">
+                            <span class="dropdown-item">Petya</span>
+                            <span class="dropdown-item">Kolya</span>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary">Оформить</button>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingFour">
+            <h5 class="mb-0">
+                <button class="btn btn-info collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+                    Оформить приказ 'Увольнение'
+                </button>
+            </h5>
+        </div>
+        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+            <div class="card-body">
+                <h3 class="text-info">Оформление увольнения</h3>
+                <div class="form-group">
+                    <label for="StartDate4">Дата завершения</label>
+                    <input id="StartDate4" class="form-control" type="date" required />
+                </div>
+                <div class="form-group">
+                    <label for="Reason4">Причина</label>
+                    <input id="Reason4" class="form-control" type="text" maxlength="20" required />
+                </div>
+                <div class="form-group">
+                    <div class="btn-group dropright">
+                        <button type="button" class="btn btn-info dropdown-toggle"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Сотрудник
+                        </button>
+                        <div class="dropdown-menu">
+                            <span class="dropdown-item">Petya</span>
+                            <span class="dropdown-item">Kolya</span>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary">Оформить</button>
             </div>
         </div>
     </div>
