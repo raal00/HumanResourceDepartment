@@ -3,72 +3,86 @@
     <h1>Учет сотрудников</h1>
 </div>
 <h3 class="text-info">Оформление нового сотрудника</h3>
-<div class="list-group">
-    <div class="list-group-item">
-        <div class="form-group">
-            <label for="fnameId">Фамилия</label>
-            <input id="fnameId" class="form-control" type="text" maxlength="20" required />
+<div id="hiringvue">
+    <div style="width: 20rem;">
+        <img class="card-img-top" src="~/card.jpg" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">{{fname}} {{sname}}</h5>
+            <p class="card-text text-info">Паспорт: {{passportId}}</p>
+            <p class="card-text text-info">Дата рождения: {{Birthday}}</p>
+            <p class="card-text text-secondary">{{position}} {{salary}}$</p>
+            <p class="card-text text-success" v-if="isVacPay">Оптала отпуска</p>
+            <p class="card-text text-success" v-if="isSickPay">Оптала больничного</p>
+            <p class="card-text text-success" v-if="isTravPay">Оптала проезда</p>
         </div>
-        <div class="form-group">
-            <label for="snameId">Имя</label>
-            <input id="snameId" class="form-control" type="text" maxlength="20" required />
-        </div>
-        <div class="form-group">
-            <label for="tnameId">Отчество</label>
-            <input id="tnameId" class="form-control" type="text" maxlength="20" required />
-        </div>
-        <div class="form-group">
-            <label for="PassportId">Номер паспорта</label>
-            <input id="PassportId" class="form-control" type="text" pattern="[0-9]{4}-[0-9]{6}" maxlength="11"
-                   aria-describedby="PasportDesv" required />
-            <small id="PasportDesv" class="form-text text-muted">XXXX-XXXXXX</small>
-        </div>
-        <div class="form-group">
-            <label for="BirthdayId">Дата рождения</label>
-            <input type="date" id="BirthdayId" />
+        <div class="card-footer">
+            <button v-on:click="SendRequest" class="btn btn-primary">Отправить заявку</button>
         </div>
     </div>
-    <div class="list-group-item">
-        <div class="form-group">
-            <label for="EmploymentContractId">Должность</label>
-            <input type="text" maxlength="20" class="form-control" id="EmploymentContractId"
-                   aria-describedby="Contractdesc" required />
-            <small id="Contractdesc" class="form-text text-muted">Должность сотрудника</small>
-        </div>
-        <div class="form-group">
-            <label for="SalaryId">Зарплата</label>
-            <input type="text" class="form-control" id="SalaryId" maxlength="6" pattern="[0-9]{3,}"
-                   aria-describedby="SalaryDesc" required />
-            <small id="SalaryDesc" class="form-text text-muted">Устанавливается в соотвествии с ТК</small>
-        </div>
-        <div class="form-group">
-            <label for="ConditionId">Условия труда (не обязательно)</label>
-            <input type="text" class="form-control" id="ConditionId" maxlength="200" />
-        </div>
-        <div class="form-group">
-            <label for="">Количество выходных дней</label>
-            <input type="text" class="form-control" id="VacationId" maxlength="2" pattern="[0-9]{2,}"
-                   aria-describedby="VacationDesc" required />
-            <small id="VacationDesc" class="form-text text-muted">Устанавливается в соотвествии с ТК</small>
-        </div>
-        <div>
-            <div class="custom-control custom-switch">
-                <input type="checkbox" id="IsVacationPayId" class="custom-control-input" />
-                <label for="IsVacationPayId" class="custom-control-label">Оплачеваемый отпуск</label>
+    <div class="list-group" style="margin-top:10px;">
+        <div class="list-group-item">
+            <div class="form-group">
+                <label for="fnameId">Фамилия</label>
+                <input id="fnameId" v-model="fname" class="form-control" type="text" maxlength="20" required />
             </div>
-            <div class="custom-control custom-switch">
-                <input type="checkbox" id="IsTravelingPayId" class="custom-control-input" style="margin-left:5px;" />
-                <label for="IsTravelingPayId" class="custom-control-label">Оплачеваемый проезд</label>
+            <div class="form-group">
+                <label for="snameId">Имя</label>
+                <input id="snameId" v-model="sname" class="form-control" type="text" maxlength="20" required />
             </div>
-            <div class="custom-control custom-switch">
-                <input type="checkbox" id="IsSickLeavePayId" class="custom-control-input" style="margin-left:5px;" />
-                <label for="IsSickLeavePayId" class="custom-control-label">Оплачеваемый больничный</label>
+            <div class="form-group">
+                <label for="tnameId">Отчество</label>
+                <input id="tnameId" v-model="tname" class="form-control" type="text" maxlength="20" required />
+            </div>
+            <div class="form-group">
+                <label for="PassportId">Номер паспорта</label>
+                <input id="PassportId" v-model="passportId" class="form-control" type="text" pattern="[0-9]{4}-[0-9]{6}" maxlength="11"
+                       aria-describedby="PasportDesv" required />
+                <small id="PasportDesv" class="form-text text-muted">XXXX-XXXXXX</small>
+            </div>
+            <div class="form-group">
+                <label for="BirthdayId">Дата рождения</label>
+                <input type="date" id="BirthdayId" v-model="Birthday" />
             </div>
         </div>
-        <div class="list-group-item flex-column">
-            <button class="btn btn-dark">Очистить поля</button>
-            <button class="btn btn-primary">Принять</button>
+        <div class="list-group-item">
+            <div class="form-group">
+                <label for="EmploymentContractId">Должность</label>
+                <input v-model="position" type="text" maxlength="20" class="form-control" id="EmploymentContractId"
+                       aria-describedby="Contractdesc" required />
+                <small id="Contractdesc" class="form-text text-muted">Должность сотрудника</small>
+            </div>
+            <div class="form-group">
+                <label for="SalaryId">Зарплата</label>
+                <input v-model="salary" type="text" class="form-control" id="SalaryId" maxlength="6" pattern="[0-9]{3,}"
+                       aria-describedby="SalaryDesc" required />
+                <small id="SalaryDesc" class="form-text text-muted">Устанавливается в соотвествии с ТК</small>
+            </div>
+            <div class="form-group">
+                <label for="ConditionId">Условия труда (не обязательно)</label>
+                <input v-model="conditions" type="text" class="form-control" id="ConditionId" maxlength="200" />
+            </div>
+            <div class="form-group">
+                <label for="VacationId">Количество выходных дней</label>
+                <input v-model="vacationDays" type="text" class="form-control" id="VacationId" maxlength="2" pattern="[0-9]{2,}"
+                       aria-describedby="VacationDesc" required />
+                <small id="VacationDesc" class="form-text text-muted">Устанавливается в соотвествии с ТК</small>
+            </div>
+            <div>
+                <div class="custom-control custom-switch">
+                    <input v-model="isVacPay" type="checkbox" id="IsVacationPayId" class="custom-control-input" />
+                    <label for="IsVacationPayId" class="custom-control-label">Оплачеваемый отпуск</label>
+                </div>
+                <div class="custom-control custom-switch">
+                    <input v-model="isTravPay" type="checkbox" id="IsTravelingPayId" class="custom-control-input" style="margin-left:5px;" />
+                    <label for="IsTravelingPayId" class="custom-control-label">Оплачеваемый проезд</label>
+                </div>
+                <div class="custom-control custom-switch">
+                    <input v-model="isSickPay" type="checkbox" id="IsSickLeavePayId" class="custom-control-input" style="margin-left:5px;" />
+                    <label for="IsSickLeavePayId" class="custom-control-label">Оплачеваемый больничный</label>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script type="text/javascript" src="~/Vue/HiringVue.js"></script>

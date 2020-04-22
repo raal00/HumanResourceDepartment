@@ -1,5 +1,5 @@
-﻿var appVue = new Vue({
-	el: '#appVue',
+﻿var reportcardvue = new Vue({
+	el: '#reportcardvue',
 	data:
 	{
 		email: "",
