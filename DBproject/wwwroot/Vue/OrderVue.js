@@ -41,27 +41,99 @@
 		},
 		sendBuisnessTripOrder: function ()
 		{
-
+			dataPost = {
+			};
+			$.ajax({
+				url: '/order/sendBuisnessTripOrder',
+				type: 'POST',
+				data: dataPost,
+				success: function (data) {
+					alert('Успешно');
+				},
+				error: function () {
+					alert('Ошибка');
+				}
+			})
 		},
 		sendDismissalOrder: function ()
 		{
-
+			dataPost = {
+			};
+			$.ajax({
+				url: '/order/sendDismissalOrder',
+				type: 'POST',
+				data: dataPost,
+				success: function (data) {
+					alert('Успешно');
+				},
+				error: function () {
+					alert('Ошибка');
+				}
+			})
 		},
 		sendFailureToAppearOrder: function ()
 		{
-
+			dataPost = {
+			};
+			$.ajax({
+				url: '/order/sendFailureOrder',
+				type: 'POST',
+				data: dataPost,
+				success: function (data) {
+					alert('Успешно');
+				},
+				error: function () {
+					alert('Ошибка');
+				}
+			})
 		},
 		sendQualificationOrder: function ()
 		{
-
+			dataPost = {
+			};
+			$.ajax({
+				url: '/order/sendQualificationOrder',
+				type: 'POST',
+				data: dataPost,
+				success: function (data) {
+					alert('Успешно');
+				},
+				error: function () {
+					alert('Ошибка');
+				}
+			})
 		},
 		sendVacationOrder: function ()
 		{
-
+			dataPost = {
+			};
+			$.ajax({
+				url: '/order/sendVacationOrder',
+				type: 'POST',
+				data: dataPost,
+				success: function (data) {
+					alert('Успешно');
+				},
+				error: function () {
+					alert('Ошибка');
+				}
+			})
 		},
 		sendSickOrder: function ()
 		{
-
+			dataPost = {
+			};
+			$.ajax({
+				url: '/order/sendSickOrder',
+				type: 'POST',
+				data: dataPost,
+				success: function (data) {
+					alert('Успешно');
+				},
+				error: function () {
+					alert('Ошибка');
+				}
+			})
 		}
 	}
 })
