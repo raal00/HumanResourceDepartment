@@ -18,7 +18,13 @@ namespace DBproject.Repository.ModelRepositories
 
         public int Create(Employee_Position item)
         {
-            throw new NotImplementedException();
+            if (connection == null || SQLConnectionController.ConnectionState != ConnectionStateEnum.CONNECTED)
+                return -1;
+            command.CommandText = "USE HumanResourcesDepartmentDB " + 
+                                  "INSERT INTO dbo.emplyee_position(idPosition,salary,idEmployee) " +
+                                 $"VALUES ({item.IdPosition},{item.Salary},{item.IdEmployee})";
+            command.ExecuteNonQuery();
+            return 0;
         }
 
         public void Delete(int id)

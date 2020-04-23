@@ -17,7 +17,15 @@ namespace DBproject.Repository.ModelRepositories
 
         public int Create(Position item)
         {
-            throw new NotImplementedException();
+            if (connection == null || SQLConnectionController.ConnectionState != ConnectionStateEnum.CONNECTED)
+                return -1;
+            command.CommandText = "USE HumanResourcesDepartmentDB " + 
+                                  "INSERT INTO dbo.position(StartDate,EndDate,PositionLabel) " +
+                                 $"VALUES ('{item.StartDate.ToShortDateString()}',NULL,'{item.PositionLabel}')";
+            command.ExecuteNonQuery();
+            command.CommandText = "SELECT SCOPE_IDENTITY()";
+            decimal lastId = (decimal)command.ExecuteScalar();
+            return (int)lastId;
         }
 
         public void Delete(int id)

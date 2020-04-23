@@ -18,10 +18,15 @@ namespace DBproject.Repository.ModelRepositories
 
         public int Create(employee item)
         {
-            command.CommandText = "INSERT INTO dbo.Employee(name,secondname,thirdname,birthday,passport) " +
+            if (connection == null || SQLConnectionController.ConnectionState != ConnectionStateEnum.CONNECTED)
+                return -1;
+            command.CommandText = "USE HumanResourcesDepartmentDB " + 
+                                  "INSERT INTO dbo.Employee(name,secondname,thirdname,birthday,passport) " +
                                   $"VALUES ('{item.Name}','{item.SecondName}','{item.ThirdName}','{item.BirthDay}','{item.Passport}')";
             command.ExecuteNonQuery();
-            return 0;
+            command.CommandText = "SELECT SCOPE_IDENTITY()";
+            decimal lastId = (decimal)command.ExecuteScalar();
+            return (int)lastId;
         }
 
         public void Delete(int id)

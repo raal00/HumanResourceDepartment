@@ -51,10 +51,10 @@
 				type: 'POST',
 				data: dataPost,
 				success: function (data) {
-					alert('Успешно');
+					alert(data.message);
                 },
 				error: function () {
-					alert('Ошибка');
+					alert('Ошибка: ' + data.message);
 				}
             })
 		}

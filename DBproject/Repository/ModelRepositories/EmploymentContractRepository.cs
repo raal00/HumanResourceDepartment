@@ -18,7 +18,16 @@ namespace DBproject.Repository.ModelRepositories
 
         public int Create(EmploymentContract item)
         {
-            throw new NotImplementedException();
+            if (connection == null || SQLConnectionController.ConnectionState != ConnectionStateEnum.CONNECTED)
+                return -1;
+            string isVacPay = item.IsVacationPay == true? "'TRUE'" : "'FALSE'";
+            string isTravPay = item.IsTravelingPay == true ? "'TRUE'" : "'FALSE'";
+            string isSickPay = item.IsSickLeavePay == true ? "'TRUE'" : "'FALSE'";
+            command.CommandText = "USE HumanResourcesDepartmentDB " +
+                                  "INSERT INTO dbo.employmentСontract (position,salary,conditions,vacations,isVacationPay,isTravelingPay,isSickLeavePay,EmployeeID) " +
+                                 $"VALUES ('{item.Position}',{item.Salary},'{item.Conditions}',{item.Vacations},{isVacPay},{isTravPay},{isSickPay},{item.EmployeeID})";
+            command.ExecuteNonQuery();
+            return 0;
         }
 
         public void Delete(int id)

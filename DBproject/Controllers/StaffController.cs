@@ -38,18 +38,38 @@ namespace DBproject.Controllers
             {
                 int employeeId = _EmployeeRepository.Create(new Models.employee()
                 {
-                    BirthDay = request.Birthday,
-                    Name = request.Fname,
-                    SecondName = request.Sname,
-                    ThirdName = request.TName,
-                    Passport = request.PassportId
+                    BirthDay    = request.Birthday,
+                    Name    = request.Fname,
+                    SecondName  = request.Sname,
+                    ThirdName   = request.TName,
+                    Passport    = request.PassportId
                 });
-                int positionId = _positionRepository.Create(new Models.Position() { 
-                     EndDate = null,
+                int positionId = _positionRepository.Create(new Models.Position() 
+                { 
+                     EndDate    = null,
                      PositionLabel = request.Position,
-                     StartDate = request.StartWork
+                     StartDate  = request.StartWork
                 });
-                response.Message = "Сотрудник успешно добавлен";
+                _Employee_PositionRepository.Create(new Models.Employee_Position() 
+                { 
+                     IdEmployee = employeeId,
+                     IdPosition = positionId,
+                     Salary     = request.Salary
+                });
+                _EmploymentContractRepository.Create(new Models.EmploymentContract()
+                { 
+                     Salary     = request.Salary,
+                     Conditions = request.Conditions,
+                     EmployeeID = employeeId,
+                     IsSickLeavePay = request.IsSickPay,
+                     IsTravelingPay = request.IsTravelingPay,
+                     IsVacationPay = request.IsVacationPay,
+                     Position   = request.Position,
+                     Vacations  = request.VacationDays
+                });
+                response.Message = "Сотрудник успешно добавлен\n " +
+                                  $"Номер сотрудника: {employeeId}\n " +
+                                  $"Номер должности сотрудника: {positionId}";
                 response.State = Models.RequestState.COMPLETED;
             }
             catch(Exception er) 
