@@ -3,6 +3,22 @@
     <h1>Оформление приказов</h1>
 </div>
 <div id="ordervue">
+    <template v-if="showSuccessResult">
+        <div class="alert alert-success" role="alert">
+            <strong>Готово!</strong> {{resultMessage}}
+            <button type="button" v-on:click="closeAlert" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </template>
+    <template v-if="showErrorResult">
+        <div class="alert alert-danger" role="alert">
+            <strong>Ошибка!</strong> {{resultMessage}}
+            <button type="button" v-on:click="closeAlert" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </template>
     <button type="button" v-on:click="loadEmployee" style="margin-bottom:5px;" class="btn btn-outline-info">Получить список сотрудников</button>
     <div class="card">
         <div class="card-header" id="headingOne">

@@ -3,6 +3,9 @@
 	data:
 	{
 		staff: [],
+		showSuccessResult: false,
+		showErrorResult: false,
+		resultMessage: '',
 		/// buisnessTrip order +
 		positionBuisnessTrip: '',
 		startDateBuisnessTrip: '',
@@ -34,6 +37,11 @@
 	},
 	methods:
 	{
+		closeAlert: function ()
+		{
+			this.showErrorResult = false;
+			this.showSuccessResult = false;
+		},
 		loadEmployee: function ()
 		{
 			// load staff from database 
@@ -47,127 +55,175 @@
 					console.log(response);
 					alert('Успешно!');
 				},
-				error: function () {
+				error: function (data) {
 					alert('Ошибка');
 				}
 			})
 		},
 		sendBuisnessTripOrder: function ()
 		{
+			var vue = this;
 			dataPost = {
-				Position: this.positionBuisnessTrip,
-				StartDate: this.startDateBuisnessTrip,
-				EndDate: this.endDateBuisnessTrip,
-				Payment: this.paymentBuisnessTrip,
-				EmployeeID: this.employeeIdBuisnessTrip
+				Position: vue.positionBuisnessTrip,
+				StartDate: vue.startDateBuisnessTrip,
+				EndDate: vue.endDateBuisnessTrip,
+				Payment: vue.paymentBuisnessTrip,
+				EmployeeID: vue.employeeIdBuisnessTrip
 			};
 			$.ajax({
 				url: '/order/sendBuisnessTripOrder',
 				type: 'POST',
 				data: dataPost,
 				success: function (data) {
-					alert('Успешно');
+					if (data.state == 0) {
+						vue.showSuccessResult = true;
+						vue.resultMessage = data.message;
+					}
+					else {
+						vue.showErrorResult = true;
+						vue.resultMessage = data.message;
+					}
 				},
 				error: function () {
-					alert('Ошибка');
 				}
 			})
 		},
 		sendDismissalOrder: function ()
 		{
+			var vue = this;
 			dataPost = {
-				EndDate: this.endDateDismissal,
-				Reason: this.reasonDismissal,
-				EmployeeID: this.employeeIdDismissal
+				EndDate: vue.endDateDismissal,
+				Reason: vue.reasonDismissal,
+				EmployeeID: vue.employeeIdDismissal
 			};
 			$.ajax({
 				url: '/order/sendDismissalOrder',
 				type: 'POST',
 				data: dataPost,
 				success: function (data) {
-					alert('Успешно');
+					if (data.state == 0) {
+						vue.showSuccessResult = true;
+						vue.resultMessage = data.message;
+					}
+					else {
+						vue.showErrorResult = true;
+						vue.resultMessage = data.message;
+					}
 				},
 				error: function () {
-					alert('Ошибка');
+					alert('/error');
 				}
 			})
 		},
 		sendFailureToAppearOrder: function ()
 		{
+			var vue = this;
 			dataPost = {
-				Date: this.endDateFailureToAppear,
-				Reason: this.reasonFailureToAppear,
-				EmployeeID: this.employeeIdFailureToAppear
+				Date: vue.endDateFailureToAppear,
+				Reason: vue.reasonFailureToAppear,
+				EmployeeID: vue.employeeIdFailureToAppear
 			};
 			$.ajax({
 				url: '/order/sendFailureOrder',
 				type: 'POST',
 				data: dataPost,
 				success: function (data) {
-					alert('Успешно');
+					if (data.state == 0) {
+						vue.showSuccessResult = true;
+						vue.resultMessage = data.message;
+					}
+					else {
+						vue.showErrorResult = true;
+						vue.resultMessage = data.message;
+					}
 				},
 				error: function () {
-					alert('Ошибка');
+					alert('/error');
 				}
 			})
 		},
 		sendQualificationOrder: function ()
 		{
+			var vue = this;
 			dataPost = {
-				Reason: this.reasonQualification,
-				StartDate: this.startDateQualification,
-				EndDate: this.endDateQualification,
-				EmployeeID: this.employeeIdQualification
+				Reason: vue.reasonQualification,
+				StartDate: vue.startDateQualification,
+				EndDate: vue.endDateQualification,
+				EmployeeID: vue.employeeIdQualification
 			};
 			$.ajax({
 				url: '/order/sendQualificationOrder',
 				type: 'POST',
 				data: dataPost,
 				success: function (data) {
-					alert('Успешно');
+					if (data.state == 0) {
+						vue.showSuccessResult = true;
+						vue.resultMessage = data.message;
+					}
+					else {
+						vue.showErrorResult = true;
+						vue.resultMessage = data.message;
+					}
 				},
 				error: function () {
-					alert('Ошибка');
+					alert('/error');
 				}
 			})
 		},
 		sendVacationOrder: function ()
 		{
+			var vue = this;
 			dataPost = {
-				StartDate: this.startDateVacation,
-				EndDate: this.endDateVacation,
-				PaymentDays: this.paymentDaysVacation,
-				EmployeeID: this.employeeIdVacation
+				StartDate: vue.startDateVacation,
+				EndDate: vue.endDateVacation,
+				PaymentDays: vue.paymentDaysVacation,
+				EmployeeID: vue.employeeIdVacation
 			};
 			$.ajax({
 				url: '/order/sendVacationOrder',
 				type: 'POST',
 				data: dataPost,
 				success: function (data) {
-					alert('Успешно');
+					console.log(data);
+					if (data.state == 0) {
+						vue.showSuccessResult = true;
+						vue.resultMessage = data.message;
+					}
+					else {
+						vue.showErrorResult = true;
+						vue.resultMessage = data.message;
+					}
 				},
 				error: function () {
-					alert('Ошибка');
+					alert('/error');
 				}
 			})
 		},
 		sendSickOrder: function ()
 		{
+			var vue = this;
 			dataPost = {
-				StartDate: this.startDateSick,
-				EndDate: this.endDateSick,
-				EmployeeID: this.employeeIdSick
+				StartDate: vue.startDateSick,
+				EndDate: vue.endDateSick,
+				EmployeeID: vue.employeeIdSick
 			};
 			$.ajax({
 				url: '/order/sendSickOrder',
 				type: 'POST',
 				data: dataPost,
 				success: function (data) {
-					alert('Успешно');
+					if (data.state == 0) {
+						vue.showSuccessResult = true;
+						vue.resultMessage = data.message;
+					}
+					else {
+						vue.showErrorResult = true;
+						vue.resultMessage = data.message;
+					}
 				},
 				error: function () {
-					alert('Ошибка');
-				}
+					alert('/error');
+			    }
 			})
 		}
 	}

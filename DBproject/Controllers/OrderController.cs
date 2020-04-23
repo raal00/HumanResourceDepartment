@@ -55,8 +55,8 @@ namespace DBproject.Controllers
                     StartDate = request.StartDate
                 });
                 response.State = Models.RequestState.COMPLETED;
-                response.Message = "Приказ о больничном добавлен в базу." +
-                                   $"\nНомер сотрудника: {request.EmployeeID}";
+                response.Message = "Приказ о больничном добавлен в базу" +
+                                   $", Номер сотрудника: {request.EmployeeID}";
             }
             catch(Exception er) 
             {
@@ -80,8 +80,8 @@ namespace DBproject.Controllers
                     StartDate = request.StartDate
                 });
                 response.State = Models.RequestState.COMPLETED;
-                response.Message = "Приказ об повышении квалификации сотрудника добавлен в базую." +
-                                   $"\nНомер сотрудника: {request.EmployeeID}";
+                response.Message = "Приказ об повышении квалификации сотрудника добавлен в базу" +
+                                   $", Номер сотрудника: {request.EmployeeID}";
             }
             catch (Exception er) 
             {
@@ -106,7 +106,7 @@ namespace DBproject.Controllers
                 });
                 response.State = Models.RequestState.COMPLETED;
                 response.Message = "Приказ об отправке в отпуск добавлен в базу" +
-                                   $"Номер сотрудника: {request.EmployeeID}";
+                                   $", Номер сотрудника: {request.EmployeeID}";
             } 
             catch (Exception er) 
             {
@@ -130,7 +130,7 @@ namespace DBproject.Controllers
                 });
                 response.State = Models.RequestState.COMPLETED;
                 response.Message = "Сведения о пропуске сотрудника добавлены в базу" +
-                                   $"Номер сотрудника: {request.EmployeeID}";
+                                   $", Номер сотрудника: {request.EmployeeID}";
             } 
             catch (Exception er) 
             {
@@ -156,7 +156,7 @@ namespace DBproject.Controllers
                 });
                 response.State = Models.RequestState.COMPLETED;
                 response.Message = "Приказ об отправке в командировку добавлен в базу" +
-                                   $"Номер сотрудника: {request.EmployeeID}";
+                                   $", Номер сотрудника: {request.EmployeeID}";
             } 
             catch (Exception er) 
             {
@@ -181,7 +181,7 @@ namespace DBproject.Controllers
                 });
                 response.State = Models.RequestState.COMPLETED;
                 response.Message = "Приказ об увольнении сотрудника добавлен в базу" +
-                                   $"Номер сотрудника: {request.EmployeeID}";
+                                   $", Номер сотрудника: {request.EmployeeID}";
             } 
             catch (Exception er) 
             {

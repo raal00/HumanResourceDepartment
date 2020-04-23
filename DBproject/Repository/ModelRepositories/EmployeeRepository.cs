@@ -41,6 +41,7 @@ namespace DBproject.Repository.ModelRepositories
                      Name = (string)reader.GetValue(1)
                 }) ;
             }
+            reader.Close();
             return model;
         }
 
