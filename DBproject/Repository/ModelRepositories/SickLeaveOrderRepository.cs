@@ -2,31 +2,26 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-
 namespace DBproject.Repository.ModelRepositories
 {
-    public class EmploymentContractRepository : IRepository<EmploymentContract>
+    public class SickLeaveOrderRepository : IRepository<SickLeaveOrder>
     {
         SqlConnection connection;
         SqlCommand command;
 
-        public EmploymentContractRepository() 
+        public SickLeaveOrderRepository()
         {
             connection = SQLConnectionController.sqlConnection;
             command = new SqlCommand();
             command.Connection = connection;
         }
-
-        public int Create(EmploymentContract item)
+        public int Create(SickLeaveOrder item)
         {
             if (connection == null || SQLConnectionController.ConnectionState != ConnectionStateEnum.CONNECTED)
                 return -1;
-            string isVacPay = item.IsVacationPay == true? "'TRUE'" : "'FALSE'";
-            string isTravPay = item.IsTravelingPay == true ? "'TRUE'" : "'FALSE'";
-            string isSickPay = item.IsSickLeavePay == true ? "'TRUE'" : "'FALSE'";
             command.CommandText = "USE HumanResourcesDepartmentDB " +
-                                  "INSERT INTO dbo.employmentСontract (position,salary,conditions,vacations,isVacationPay,isTravelingPay,isSickLeavePay,EmployeeID) " +
-                                 $"VALUES ('{item.Position}',{item.Salary},'{item.Conditions}',{item.Vacations},{isVacPay},{isTravPay},{isSickPay},{item.EmployeeID})";
+                                  "INSERT INTO dbo.SickLeaveOrder (StartDate, EndDate, EmployeeID)" +
+                                  $"VALUES ('{item.StartDate.ToShortDateString()}','{item.EndDate.ToShortDateString()}',{item.EmployeeID})";
             command.ExecuteNonQuery();
             return 0;
         }
@@ -41,12 +36,12 @@ namespace DBproject.Repository.ModelRepositories
             throw new NotImplementedException();
         }
 
-        public EmploymentContract GetItem(int id)
+        public SickLeaveOrder GetItem(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<EmploymentContract> GetList()
+        public IEnumerable<SickLeaveOrder> GetList()
         {
             throw new NotImplementedException();
         }
@@ -56,7 +51,7 @@ namespace DBproject.Repository.ModelRepositories
             throw new NotImplementedException();
         }
 
-        public int Update(EmploymentContract item)
+        public int Update(SickLeaveOrder item)
         {
             throw new NotImplementedException();
         }

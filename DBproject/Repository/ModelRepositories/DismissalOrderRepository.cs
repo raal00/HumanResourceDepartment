@@ -2,31 +2,27 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-
 namespace DBproject.Repository.ModelRepositories
 {
-    public class EmploymentContractRepository : IRepository<EmploymentContract>
+    public class DismissalOrderRepository : IRepository<DismissalOrder>
     {
         SqlConnection connection;
         SqlCommand command;
 
-        public EmploymentContractRepository() 
+        public DismissalOrderRepository()
         {
             connection = SQLConnectionController.sqlConnection;
             command = new SqlCommand();
             command.Connection = connection;
         }
 
-        public int Create(EmploymentContract item)
+        public int Create(DismissalOrder item)
         {
             if (connection == null || SQLConnectionController.ConnectionState != ConnectionStateEnum.CONNECTED)
                 return -1;
-            string isVacPay = item.IsVacationPay == true? "'TRUE'" : "'FALSE'";
-            string isTravPay = item.IsTravelingPay == true ? "'TRUE'" : "'FALSE'";
-            string isSickPay = item.IsSickLeavePay == true ? "'TRUE'" : "'FALSE'";
             command.CommandText = "USE HumanResourcesDepartmentDB " +
-                                  "INSERT INTO dbo.employmentСontract (position,salary,conditions,vacations,isVacationPay,isTravelingPay,isSickLeavePay,EmployeeID) " +
-                                 $"VALUES ('{item.Position}',{item.Salary},'{item.Conditions}',{item.Vacations},{isVacPay},{isTravPay},{isSickPay},{item.EmployeeID})";
+                                  "INSERT INTO dbo.dismissalOrder (EndDate, reason, EmployeeID)" +
+                                  $"VALUES ('{item.EndDate.ToShortDateString()}','{item.Reason}',{item.EmployeeID})";
             command.ExecuteNonQuery();
             return 0;
         }
@@ -41,12 +37,12 @@ namespace DBproject.Repository.ModelRepositories
             throw new NotImplementedException();
         }
 
-        public EmploymentContract GetItem(int id)
+        public DismissalOrder GetItem(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<EmploymentContract> GetList()
+        public IEnumerable<DismissalOrder> GetList()
         {
             throw new NotImplementedException();
         }
@@ -56,7 +52,7 @@ namespace DBproject.Repository.ModelRepositories
             throw new NotImplementedException();
         }
 
-        public int Update(EmploymentContract item)
+        public int Update(DismissalOrder item)
         {
             throw new NotImplementedException();
         }

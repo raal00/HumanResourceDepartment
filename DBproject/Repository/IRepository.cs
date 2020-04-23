@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DBproject.Repository
 {
     public interface IRepository<T> : IDisposable where T : class 
     {
-        IEquatable<T> GetList();
+        IEnumerable<T> GetList();
         T GetItem(int id);
         int Create(T item);
         int Update(T item);

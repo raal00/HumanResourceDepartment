@@ -1,5 +1,6 @@
 ﻿using DBproject.Models;
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace DBproject.Repository.ModelRepositories
@@ -42,7 +43,7 @@ namespace DBproject.Repository.ModelRepositories
             throw new NotImplementedException();
         }
 
-        public IEquatable<Employee_Position> GetList()
+        public IEnumerable<Employee_Position> GetList()
         {
             throw new NotImplementedException();
         }

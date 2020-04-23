@@ -1,6 +1,9 @@
 ﻿using DBproject.Models;
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
+using DBproject.Models.SpecModels.RequestModels;
+using DBproject.Models.SpecModels.ResponseModels;
 
 namespace DBproject.Repository.ModelRepositories
 {
@@ -15,6 +18,32 @@ namespace DBproject.Repository.ModelRepositories
             command = new SqlCommand();
             command.Connection = connection;
         }
+
+        public StaffModelRequest GetStaffModel() 
+        {
+            StaffModelRequest model = new StaffModelRequest();
+            return model;
+        }
+        public StaffListResponse GetStaffList() 
+        {
+            StaffListResponse model = new StaffListResponse();
+            if (connection == null || SQLConnectionController.ConnectionState != ConnectionStateEnum.CONNECTED)
+                throw new ArgumentNullException();
+            command.CommandText = "USE HumanResourcesDepartmentDB " +
+                                  "SELECT [id], [secondname] FROM dbo.Employee";
+            model.StaffList = new List<StaffModelRequest>();
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read()) 
+            {
+                model.StaffList.Add(new StaffModelRequest()
+                {
+                     Id = (int)reader.GetValue(0),
+                     Name = (string)reader.GetValue(1)
+                }) ;
+            }
+            return model;
+        }
+
 
         public int Create(employee item)
         {
@@ -44,7 +73,7 @@ namespace DBproject.Repository.ModelRepositories
             throw new NotImplementedException();
         }
 
-        public IEquatable<employee> GetList()
+        public IEnumerable<employee> GetList()
         {
             throw new NotImplementedException();
         }
