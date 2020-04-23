@@ -11,6 +11,7 @@
             <p class="card-text text-info">Паспорт: {{passportId}}</p>
             <p class="card-text text-info">Дата рождения: {{birthday}}</p>
             <p class="card-text text-secondary">{{position}} {{salary}}$</p>
+            <p class="card-text text-secondary">начало работы: {{startWork}}</p>
             <p class="card-text text-success" v-if="isVacPay">Оптала отпуска</p>
             <p class="card-text text-success" v-if="isSickPay">Оптала больничного</p>
             <p class="card-text text-success" v-if="isTravPay">Оптала проезда</p>
@@ -41,7 +42,7 @@
             </div>
             <div class="form-group">
                 <label for="BirthdayId">Дата рождения</label>
-                <input type="date" id="BirthdayId" v-model="birthday" />
+                <input type="date" class="form-control" id="BirthdayId" v-model="birthday" />
             </div>
         </div>
         <div class="list-group-item">
@@ -56,6 +57,10 @@
                 <input v-model="salary" type="text" class="form-control" id="SalaryId" maxlength="6" pattern="[0-9]{3,}"
                        aria-describedby="SalaryDesc" required />
                 <small id="SalaryDesc" class="form-text text-muted">Устанавливается в соотвествии с ТК</small>
+            </div>
+            <div class="form-group">
+                <label for="StartWorkId">Начало работы</label>
+                <input type="date" class="form-control" id="StartWorkId" v-model="startWork" />
             </div>
             <div class="form-group">
                 <label for="ConditionId">Условия труда (не обязательно)</label>

@@ -16,5 +16,6 @@ namespace DBproject.Models.SpecModels
         public bool IsVacationPay { get; set; }
         public bool IsTravelingPay { get; set; }
         public bool IsSickPay { get; set; }
+        public DateTime StartWork { get; set; }
     }
 }

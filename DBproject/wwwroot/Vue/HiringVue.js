@@ -6,7 +6,8 @@
 		sname: '',
 		tname: '',
 		passportId: '',
-		birthday: new Date(),
+		birthday: new Date(0,0,0),
+		startWork: new Date(0,0,0),
 		position: '',
 		salary: 0,
 		conditions: '',
@@ -42,7 +43,8 @@
 				VacationDays: vue.vacationDays,
 				IsVacationPay: vue.isVacPay,
 				IsTravelingPay: vue.isTravPay,
-				IsSickPay: vue.isSickPay
+				IsSickPay: vue.isSickPay,
+				StartWork: vue.startWork
 			};
             $.ajax({
 				url: '/staff/newEmployeeRequest',

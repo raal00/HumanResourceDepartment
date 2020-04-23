@@ -11,11 +11,11 @@ namespace DBproject.Repository
 
         public static void ConnectToServer(this SqlConnection connection)
         {
-            connection = new SqlConnection(connectionString);
+            sqlConnection = new SqlConnection(connectionString);
             try 
             {
-                connection.Open();
-                connection.StateChange += Connection_StateChange;
+                sqlConnection.Open();
+                sqlConnection.StateChange += Connection_StateChange;
                 ConnectionState = ConnectionStateEnum.CONNECTED;
             }
             catch (Exception er) 

@@ -6,8 +6,8 @@ namespace DBproject.Repository
     {
         IEquatable<T> GetList();
         T GetItem(int id);
-        void Create(T item);
-        void Update(T item);
+        int Create(T item);
+        int Update(T item);
         void Delete(int id);
         void Save();
     }

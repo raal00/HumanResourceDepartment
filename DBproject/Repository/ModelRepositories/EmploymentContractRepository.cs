@@ -4,24 +4,21 @@ using System.Data.SqlClient;
 
 namespace DBproject.Repository.ModelRepositories
 {
-    public class EmployeeRepository : IRepository<employee>
+    public class EmploymentContractRepository : IRepository<EmploymentContract>
     {
         SqlConnection connection;
         SqlCommand command;
 
-        public EmployeeRepository() 
+        public EmploymentContractRepository() 
         {
             connection = SQLConnectionController.sqlConnection;
             command = new SqlCommand();
             command.Connection = connection;
         }
 
-        public int Create(employee item)
+        public int Create(EmploymentContract item)
         {
-            command.CommandText = "INSERT INTO dbo.Employee(name,secondname,thirdname,birthday,passport) " +
-                                  $"VALUES ('{item.Name}','{item.SecondName}','{item.ThirdName}','{item.BirthDay}','{item.Passport}')";
-            command.ExecuteNonQuery();
-            return 0;
+            throw new NotImplementedException();
         }
 
         public void Delete(int id)
@@ -34,12 +31,12 @@ namespace DBproject.Repository.ModelRepositories
             throw new NotImplementedException();
         }
 
-        public employee GetItem(int id)
+        public EmploymentContract GetItem(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEquatable<employee> GetList()
+        public IEquatable<EmploymentContract> GetList()
         {
             throw new NotImplementedException();
         }
@@ -49,7 +46,7 @@ namespace DBproject.Repository.ModelRepositories
             throw new NotImplementedException();
         }
 
-        public int Update(employee item)
+        public int Update(EmploymentContract item)
         {
             throw new NotImplementedException();
         }
