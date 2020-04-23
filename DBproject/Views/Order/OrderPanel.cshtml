@@ -2,7 +2,8 @@
 <div class="jumbotron text-center">
     <h1>Оформление приказов</h1>
 </div>
-<div id="accordion">
+<div id="ordervue">
+    <button type="button" v-on:click="loadEmployee" style="margin-bottom:5px;" class="btn btn-outline-info">Получить список сотрудников</button>
     <div class="card">
         <div class="card-header" id="headingOne">
             <h5 class="mb-0">
@@ -11,35 +12,30 @@
                 </button>
             </h5>
         </div>
-        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#ordervue">
             <div class="card-body">
                 <h3 class="text-info">Оформление отпуска</h3>
                 <div class="form-group">
                     <label for="StartDate1">Дата начала</label>
-                    <input id="StartDate1" class="form-control" type="date" required />
+                    <input id="StartDate1" v-model="startDateVacation" class="form-control" type="date" required />
                 </div>
                 <div class="form-group">
-                    <label for="EndDate1">Дата начала</label>
-                    <input id="EndDate1" class="form-control" type="date" required />
+                    <label for="EndDate1">Дата завершения</label>
+                    <input id="EndDate1" v-model="endDateVacation" class="form-control" type="date" required />
                 </div>
                 <div class="form-group">
                     <label for="PaymentDays1">Дней оплачено</label>
-                    <input id="PaymentDays1" class="form-control" type="text"
-                           pattern="[0-9]{,3}" maxlength="3" required />
+                    <input id="PaymentDays1" v-model="paymentDaysVacation" class="form-control" type="text" maxlength="3" required />
                 </div>
                 <div class="form-group">
-                    <div class="btn-group dropright">
-                        <button type="button" class="btn btn-info dropdown-toggle"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Сотрудник
-                        </button>
-                        <div class="dropdown-menu">
-                            <span class="dropdown-item">Petya</span>
-                            <span class="dropdown-item">Kolya</span>
-                        </div>
-                    </div>
+                    <label for="id1">Сотрудник</label>
+                    <select id="id1" v-model="employeeIdVacation" class="form-control">
+                        <option v-for="person in staff" v-bind:value="person.id">
+                            {{person.name}}
+                        </option>
+                    </select>
                 </div>
-                <button type="button" class="btn btn-primary">Оформить</button>
+                <button type="button" v-on:click="sendVacationOrder" class="btn btn-primary">Оформить отпуск</button>
             </div>
         </div>
     </div>
@@ -51,34 +47,30 @@
                 </button>
             </h5>
         </div>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#ordervue">
             <div class="card-body">
                 <h3 class="text-info">Оформление отправления на курс повышения квалификации</h3>
                 <div class="form-group">
                     <label for="StartDate2">Дата начала</label>
-                    <input id="StartDate2" class="form-control" type="date" required />
+                    <input id="StartDate2" v-model="startDateQualification" class="form-control" type="date" required />
                 </div>
                 <div class="form-group">
-                    <label for="EndDate2">Дата начала</label>
-                    <input id="EndDate2" class="form-control" type="date" required />
+                    <label for="EndDate2">Дата завершения</label>
+                    <input id="EndDate2" v-model="endDateQualification" class="form-control" type="date" required />
                 </div>
                 <div class="form-group">
                     <label for="Reason2">Причина</label>
-                    <input id="Reason2" class="form-control" type="text" maxlength="20" required />
+                    <input id="Reason2" v-model="reasonQualification" class="form-control" type="text" maxlength="20" required />
                 </div>
                 <div class="form-group">
-                    <div class="btn-group dropright">
-                        <button type="button" class="btn btn-info dropdown-toggle"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Сотрудник
-                        </button>
-                        <div class="dropdown-menu">
-                            <span class="dropdown-item">Petya</span>
-                            <span class="dropdown-item">Kolya</span>
-                        </div>
-                    </div>
+                    <label for="id2">Сотрудник</label>
+                    <select v-model="employeeIdQualification" class="form-control">
+                        <option id="id2" v-for="person in staff" v-bind:value="person.id">
+                            {{person.name}}
+                        </option>
+                    </select>
                 </div>
-                <button type="button" class="btn btn-primary">Оформить</button>
+                <button type="button" v-on:click="sendQualificationOrder" class="btn btn-primary">Оформить</button>
             </div>
         </div>
     </div>
@@ -90,30 +82,26 @@
                 </button>
             </h5>
         </div>
-        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#ordervue">
             <div class="card-body">
                 <h3 class="text-info">Оформление больничного</h3>
                 <div class="form-group">
                     <label for="StartDate3">Дата начала</label>
-                    <input id="StartDate3" class="form-control" type="date" required />
+                    <input id="StartDate3" v-model="startDateSick" class="form-control" type="date" required />
                 </div>
                 <div class="form-group">
-                    <label for="EndDate3">Дата начала</label>
-                    <input id="EndDate3" class="form-control" type="date" required />
+                    <label for="EndDate3">Дата завершения</label>
+                    <input id="EndDate3" v-model="endDateSick" class="form-control" type="date" required />
                 </div>
                 <div class="form-group">
-                    <div class="btn-group dropright">
-                        <button type="button" class="btn btn-info dropdown-toggle"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Сотрудник
-                        </button>
-                        <div class="dropdown-menu">
-                            <span class="dropdown-item">Petya</span>
-                            <span class="dropdown-item">Kolya</span>
-                        </div>
-                    </div>
+                    <label for="id3">Сотрудник</label>
+                    <select id="id3" v-model="employeeIdSick" class="form-control">
+                        <option v-for="person in staff" v-bind:value="person.id">
+                            {{person.name}}
+                        </option>
+                    </select>
                 </div>
-                <button type="button" class="btn btn-primary">Оформить</button>
+                <button type="button" v-on:click="sendSickOrder" class="btn btn-primary">Оформить</button>
             </div>
         </div>
     </div>
@@ -125,31 +113,68 @@
                 </button>
             </h5>
         </div>
-        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#ordervue">
             <div class="card-body">
                 <h3 class="text-info">Оформление увольнения</h3>
                 <div class="form-group">
                     <label for="StartDate4">Дата завершения</label>
-                    <input id="StartDate4" class="form-control" type="date" required />
+                    <input id="StartDate4" v-model="endDateDismissal" class="form-control" type="date" required />
                 </div>
                 <div class="form-group">
                     <label for="Reason4">Причина</label>
-                    <input id="Reason4" class="form-control" type="text" maxlength="20" required />
+                    <input id="Reason4" v-model="reasonDismissal" class="form-control" type="text" maxlength="20" required />
                 </div>
                 <div class="form-group">
-                    <div class="btn-group dropright">
-                        <button type="button" class="btn btn-info dropdown-toggle"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Сотрудник
-                        </button>
-                        <div class="dropdown-menu">
-                            <span class="dropdown-item">Petya</span>
-                            <span class="dropdown-item">Kolya</span>
-                        </div>
-                    </div>
+                    <label for="id4">Сотрудник</label>
+                    <select id="id4" v-model="employeeIdDismissal" class="form-control">
+                        <option v-for="person in staff" v-bind:value="person.id">
+                            {{person.name}}
+                        </option>
+                    </select>
                 </div>
-                <button type="button" class="btn btn-primary">Оформить</button>
+                <button type="button" v-on:click="sendDismissalOrder" class="btn btn-primary">Оформить</button>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingFive">
+            <h5 class="mb-0">
+                <button class="btn btn-info collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
+                    Оформить приказ 'Командировка'
+                </button>
+            </h5>
+        </div>
+        <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#ordervue">
+            <div class="card-body">
+                <h3 class="text-info">Оформление командировки</h3>
+                <div class="form-group">
+                    <label for="location5">Место командировки</label>
+                    <input id="location5" v-model="positionBuisnessTrip" class="form-control" type="text" required />
+                </div>
+                <div class="form-group">
+                    <label for="StartDate5">Дата начала</label>
+                    <input id="StartDate5" v-model="startDateBuisnessTrip" class="form-control" type="date" required />
+                </div>
+                <div class="form-group">
+                    <label for="EndDate5">Дата завершения</label>
+                    <input id="EndDate5" v-model="endDateBuisnessTrip" class="form-control" type="date" required />
+                </div>
+                <div class="form-group">
+                    <label for="Payment5">Кем оплачивается</label>
+                    <input id="Payment5" v-model="paymentBuisnessTrip" class="form-control" type="text" maxlength="20" required />
+                </div>
+                <div class="form-group">
+                    <label for="id5">Сотрудник</label>
+                    <select id="id5" v-model="employeeIdBuisnessTrip" class="form-control">
+                        <option v-for="person in staff" v-bind:value="person.id">
+                            {{person.name}}
+                        </option>
+                    </select>
+                </div>
+                <button type="button" v-on:click="sendBuisnessTripOrder" class="btn btn-primary">Оформить</button>
             </div>
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script type="text/javascript" src="~/Vue/OrderVue.js"></script>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DBproject.Models.SpecModels;
 using DBproject.Models.SpecModels.RequestModels;
 using DBproject.Models.SpecModels.ResponseModels;
@@ -14,6 +15,18 @@ namespace DBproject.Controllers
         {
             return View();
         }
+        [Route("loadStaffList")]
+        public JsonResult LoadStaffList() 
+        {
+            StaffListResponse response = new StaffListResponse();
+            response.StaffList = new List<StaffModelRequest>();
+            response.StaffList.Add(new StaffModelRequest() { Id = 32, Name = "kolya" });
+            response.StaffList.Add(new StaffModelRequest() { Id = 21, Name = "petya" });
+            response.StaffList.Add(new StaffModelRequest() { Id = 11, Name = "sasha" });
+            
+            return Json(response);
+        }
+
 
         [Route("sendSickOrder")]
         public JsonResult SendSickOrder(SickOrderRequest request) 
