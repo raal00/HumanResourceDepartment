@@ -20,7 +20,7 @@ namespace DBproject.Repository.ModelRepositories
         {
             if (connection == null || SQLConnectionController.ConnectionState != ConnectionStateEnum.CONNECTED)
                 return -1;
-            command.CommandText = "USE HumanResourcesDepartmentDB " + 
+            command.CommandText = "USE DB_A5D903_humanDeptDB " + 
                                   "INSERT INTO dbo.position(StartDate,EndDate,PositionLabel) " +
                                  $"VALUES ('{item.StartDate.ToShortDateString()}',NULL,'{item.PositionLabel}')";
             command.ExecuteNonQuery();

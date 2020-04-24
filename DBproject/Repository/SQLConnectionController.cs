@@ -5,13 +5,14 @@ namespace DBproject.Repository
 {
     public static class SQLConnectionController
     {
+        private static string connectionStringNew = "Data Source=SQL5059.site4now.net;Initial Catalog=DB_A5D903_humanDeptDB;User Id=DB_A5D903_humanDeptDB_admin;Password=1357997531Sg;";
         private static string connectionString = @"Data Source =.\SQLEXPRESS;Initial Catalog = HumanResourcesDepartmentDB; Integrated Security = True";
         public static SqlConnection sqlConnection;
         public static ConnectionStateEnum ConnectionState;
 
         public static void ConnectToServer(this SqlConnection connection)
         {
-            sqlConnection = new SqlConnection(connectionString);
+            sqlConnection = new SqlConnection(connectionStringNew);
             try 
             {
                 sqlConnection.Open();

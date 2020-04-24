@@ -24,7 +24,7 @@ namespace DBproject.Repository.ModelRepositories
             string isVacPay = item.IsVacationPay == true? "'TRUE'" : "'FALSE'";
             string isTravPay = item.IsTravelingPay == true ? "'TRUE'" : "'FALSE'";
             string isSickPay = item.IsSickLeavePay == true ? "'TRUE'" : "'FALSE'";
-            command.CommandText = "USE HumanResourcesDepartmentDB " +
+            command.CommandText = "USE DB_A5D903_humanDeptDB " +
                                   "INSERT INTO dbo.employmentСontract (position,salary,conditions,vacations,isVacationPay,isTravelingPay,isSickLeavePay,EmployeeID) " +
                                  $"VALUES ('{item.Position}',{item.Salary},'{item.Conditions}',{item.Vacations},{isVacPay},{isTravPay},{isSickPay},{item.EmployeeID})";
             command.ExecuteNonQuery();

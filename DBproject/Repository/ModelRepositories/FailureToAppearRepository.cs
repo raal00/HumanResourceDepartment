@@ -20,7 +20,7 @@ namespace DBproject.Repository.ModelRepositories
         {
             if (connection == null || SQLConnectionController.ConnectionState != ConnectionStateEnum.CONNECTED)
                 return -1;
-            command.CommandText = "USE HumanResourcesDepartmentDB " +
+            command.CommandText = "USE DB_A5D903_humanDeptDB " +
                                   "INSERT INTO dbo.failureToAppear (Date, reason, EmployeeID)" +
                                   $"VALUES ('{item.Date.ToShortDateString()}','{item.Reason}',{item.EmployeeID})";
             command.ExecuteNonQuery();

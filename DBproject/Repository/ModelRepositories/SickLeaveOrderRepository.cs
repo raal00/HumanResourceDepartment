@@ -19,7 +19,7 @@ namespace DBproject.Repository.ModelRepositories
         {
             if (connection == null || SQLConnectionController.ConnectionState != ConnectionStateEnum.CONNECTED)
                 return -1;
-            command.CommandText = "USE HumanResourcesDepartmentDB " +
+            command.CommandText = "USE DB_A5D903_humanDeptDB " +
                                   "INSERT INTO dbo.SickLeaveOrder (StartDate, EndDate, EmployeeID)" +
                                   $"VALUES ('{item.StartDate.ToShortDateString()}','{item.EndDate.ToShortDateString()}',{item.EmployeeID})";
             command.ExecuteNonQuery();

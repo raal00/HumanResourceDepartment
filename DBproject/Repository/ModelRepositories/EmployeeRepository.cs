@@ -29,7 +29,7 @@ namespace DBproject.Repository.ModelRepositories
             StaffListResponse model = new StaffListResponse();
             if (connection == null || SQLConnectionController.ConnectionState != ConnectionStateEnum.CONNECTED)
                 throw new ArgumentNullException();
-            command.CommandText = "USE HumanResourcesDepartmentDB " +
+            command.CommandText = "USE DB_A5D903_humanDeptDB " +
                                   "SELECT [id], [secondname] FROM dbo.Employee";
             model.StaffList = new List<StaffModelRequest>();
             SqlDataReader reader = command.ExecuteReader();
@@ -50,7 +50,7 @@ namespace DBproject.Repository.ModelRepositories
         {
             if (connection == null || SQLConnectionController.ConnectionState != ConnectionStateEnum.CONNECTED)
                 return -1;
-            command.CommandText = "USE HumanResourcesDepartmentDB " + 
+            command.CommandText = "USE DB_A5D903_humanDeptDB " + 
                                   "INSERT INTO dbo.Employee(name,secondname,thirdname,birthday,passport) " +
                                   $"VALUES ('{item.Name}','{item.SecondName}','{item.ThirdName}','{item.BirthDay}','{item.Passport}')";
             command.ExecuteNonQuery();
