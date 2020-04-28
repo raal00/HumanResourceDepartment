@@ -46,22 +46,36 @@ namespace DBproject.Controllers
         public JsonResult SendSickOrder(SickOrderRequest request) 
         {
             SickOrderResponse response = new SickOrderResponse();
-            try
+            bool IsVacation = false;
+            // проверка в отпуске сотрудник или нет
+            // В отуске => добавление в бд
+            
+            // Не в отпуске => просьба занести в журнал
+            if (IsVacation)
             {
-                _sickLeaveOrderRepository.Create(new Models.SickLeaveOrder()
+                try
                 {
-                    EmployeeID = request.EmployeeID,
-                    EndDate = request.EndDate,
-                    StartDate = request.StartDate
-                });
-                response.State = Models.RequestState.COMPLETED;
-                response.Message = "Приказ о больничном добавлен в базу" +
-                                   $", Номер сотрудника: {request.EmployeeID}";
+                    _sickLeaveOrderRepository.Create(new Models.SickLeaveOrder()
+                    {
+                        EmployeeID = request.EmployeeID,
+                        EndDate = request.EndDate,
+                        StartDate = request.StartDate
+                    });
+                    response.State = Models.RequestState.COMPLETED;
+                    response.Message = "Приказ о больничном добавлен в базу" +
+                                       $", Номер сотрудника: {request.EmployeeID}";
+                }
+                catch (Exception er)
+                {
+                    response.State = Models.RequestState.FAILED;
+                    response.Message = er.Message;
+                }
             }
-            catch(Exception er) 
+            else 
             {
-                response.State = Models.RequestState.FAILED;
-                response.Message = er.Message;
+                response.State = Models.RequestState.CLOSED;
+                response.Message = "Сотрудник не находится в отпуске. " +
+                   "Пожалуйста, занесите сотрудника в специальный журнал";
             }
             return Json(response);
         }
@@ -69,6 +83,8 @@ namespace DBproject.Controllers
         [Route("sendQualificationOrder")]
         public JsonResult SendQualificationOrder(QualificationOrderRequest request)
         {
+            // если фирма отправила на повышение квалификации то добавить в бд
+            // иначе запрос документа
             QualificationOrderResponse response = new QualificationOrderResponse();
             try 
             {
@@ -169,7 +185,7 @@ namespace DBproject.Controllers
         [Route("sendDismissalOrder")]
         public JsonResult SendDismissalOrder(DismissalOrderRequest request)
         {
-
+            // установка завершения работы на 2 недели вперед
             DismissalOrderResponse response = new DismissalOrderResponse();
             try
             {
