@@ -49,7 +49,7 @@
 			vue.staff = [];
 			$.ajax({
 				url: '/order/loadStaffList',
-				type: 'GET',
+				type: 'POST',
 				success: function (response) {
 					vue.staff = response.staffList;
 					console.log(response);

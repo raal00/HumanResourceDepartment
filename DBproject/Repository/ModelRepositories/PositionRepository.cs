@@ -22,7 +22,7 @@ namespace DBproject.Repository.ModelRepositories
                 return -1;
             command.CommandText = "USE DB_A5D903_humanDeptDB " + 
                                   "INSERT INTO dbo.position(StartDate,EndDate,PositionLabel) " +
-                                 $"VALUES ('{item.StartDate.ToShortDateString()}',NULL,'{item.PositionLabel}')";
+                                 $"VALUES ('{item.StartDate.ToShortDateString()}',NULL,N'{item.PositionLabel}')";
             command.ExecuteNonQuery();
             command.CommandText = "SELECT SCOPE_IDENTITY()";
             decimal lastId = (decimal)command.ExecuteScalar();
@@ -56,7 +56,20 @@ namespace DBproject.Repository.ModelRepositories
 
         public int Update(Position item)
         {
-            throw new NotImplementedException();
+            return 0;
+        }
+
+        public void UpdateDate() 
+        {
+            if (connection == null || SQLConnectionController.ConnectionState != ConnectionStateEnum.CONNECTED)
+                return;
+            int Employeeid = 0;
+            DateTime? date = DateTime.Now;
+            date.Value.AddDays(14);
+            command.CommandText = "USE DB_A5D903_humanDeptDB " +
+                                  $"UPDATE dbo.position SET EndDate = '{date}' " +
+                                  $"WHERE EmployeeID = {Employeeid}";
+            command.ExecuteNonQuery();
         }
     }
 }

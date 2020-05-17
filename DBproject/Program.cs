@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using DBproject.Repository;
+//using System.IO;
 
 namespace DBproject
 {
@@ -23,6 +24,9 @@ namespace DBproject
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                   // webBuilder.UseUrls("http://0.0.0.0:5000/");
+                   // webBuilder.UseKestrel();
+                    //webBuilder.UseContentRoot(Directory.GetCurrentDirectory());
                 });
     }
 }

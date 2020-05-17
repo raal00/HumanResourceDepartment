@@ -18,8 +18,10 @@ namespace DBproject.Controllers
         private readonly QualificationOrderRepository _qualificationOrderRepository;
         private readonly SickLeaveOrderRepository _sickLeaveOrderRepository;
         private readonly VacationOrderRepository _vacationOrderRepository;
+        private readonly PositionRepository _positionRepository;
         public OrderController() 
         {
+            _positionRepository = new PositionRepository();
             _employeeRepository = new EmployeeRepository();
             _buisnessTripOrderRepository = new BuisnessTripOrderRepository();
             _dismissalOrderRepository = new DismissalOrderRepository();
@@ -47,10 +49,25 @@ namespace DBproject.Controllers
         {
             SickOrderResponse response = new SickOrderResponse();
             bool IsVacation = false;
-            // проверка в отпуске сотрудник или нет
-            // В отуске => добавление в бд
-            
-            // Не в отпуске => просьба занести в журнал
+            Models.VacationOrder order;
+            try
+            {
+                order = _vacationOrderRepository.GetItem(request.EmployeeID);
+                if (order != null && order.EmployeeID == request.EmployeeID) 
+                {
+                    DateTime curDate = DateTime.Now;
+                    if (order.StartDate < curDate && order.EndDate > curDate) 
+                    {
+                        IsVacation = true;
+                    }
+                }
+            }
+            catch (Exception er) 
+            {
+                response.State = Models.RequestState.FAILED;
+                response.Message = er.Message;
+                return Json(response);
+            }
             if (IsVacation)
             {
                 try
@@ -83,9 +100,16 @@ namespace DBproject.Controllers
         [Route("sendQualificationOrder")]
         public JsonResult SendQualificationOrder(QualificationOrderRequest request)
         {
+            QualificationOrderResponse response = new QualificationOrderResponse();
+            if (!request.Reason.Contains("отправила фирма")) 
+            {
+                response.State = Models.RequestState.CLOSED;
+                response.Message = "Укажите, что на повышение квалификации отправила фирма." +
+                                   "Или укажите ссылку на документ для подтверждения прохождения.";
+                return Json(response);
+            }
             // если фирма отправила на повышение квалификации то добавить в бд
             // иначе запрос документа
-            QualificationOrderResponse response = new QualificationOrderResponse();
             try 
             {
                 _qualificationOrderRepository.Create(new Models.QualificationOrder() 
@@ -185,6 +209,11 @@ namespace DBproject.Controllers
         [Route("sendDismissalOrder")]
         public JsonResult SendDismissalOrder(DismissalOrderRequest request)
         {
+            try
+            {
+                _positionRepository.UpdateDate();
+            }
+            catch (Exception er) { }
             // установка завершения работы на 2 недели вперед
             DismissalOrderResponse response = new DismissalOrderResponse();
             try

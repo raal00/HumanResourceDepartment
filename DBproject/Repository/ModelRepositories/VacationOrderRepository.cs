@@ -39,7 +39,22 @@ namespace DBproject.Repository.ModelRepositories
 
         public VacationOrder GetItem(int id)
         {
-            throw new NotImplementedException();
+            if (connection == null || SQLConnectionController.ConnectionState != ConnectionStateEnum.CONNECTED)
+                throw new ArgumentNullException();
+            VacationOrder model = new VacationOrder();
+            command.CommandText = "USE DB_A5D903_humanDeptDB " +
+                                  "SELECT [StartDate], [EndDate], [PaymentDays], [EmployeeID] FROM dbo.vacationOrder " +
+                                  $"WHERE EmployeeID = {id}";
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                model.StartDate = (DateTime)reader.GetValue(0);
+                model.EndDate = (DateTime)reader.GetValue(1);
+                model.PaymentDays = (int)reader.GetValue(2);
+                model.EmployeeID = (int)reader.GetValue(3);
+            }
+            reader.Close();
+            return model;
         }
 
         public IEnumerable<VacationOrder> GetList()
